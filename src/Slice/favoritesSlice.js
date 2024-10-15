@@ -8,15 +8,18 @@ export const favoritesSlice = createSlice({
   initialState: {
     favorites: initialFavorites,
     favBookCount: initialFavorites.length,
+    favID: initialFavorites.map(item => item.favBook).join(','),
   },
   reducers: {
     addFavorite: (state, action) => {
       state.favorites.push(action.payload);
+      state.favID = state.favID ? `${state.favID},${action.payload.favBook}` : `${action.payload.favBook}`;
       state.favBookCount = state.favorites.length;
       localStorage.setItem('favorites', JSON.stringify(state.favorites));
     },
     removeFavorite: (state, action) => {
       state.favorites = state.favorites.filter(fav => fav.favBook !== action.payload);
+      state.favID = state.favorites.map(item => item.favBook).join(',');
       state.favBookCount = state.favorites.length;
       localStorage.setItem('favorites', JSON.stringify(state.favorites));
     },

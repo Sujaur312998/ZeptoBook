@@ -3,15 +3,21 @@ import NavBar from './Component/NavBar'
 import Home from './Component/Home'
 import { Provider } from 'react-redux';
 import { store } from './store';
+import WishList from './Component/WishList'
+import NotFoundPage from './Template/NotFoundPage';
 
 function App() {
 
   const routes = [
     { path: '/', element: <Home /> },
+    { path: '/wishlist', element: <WishList /> },
+    { path: '*', element: <NotFoundPage /> },
 
   ];
 
   const element = useRoutes(routes);
+
+  window.store=store
 
   return (
     <div className="w-full flex flex-col min-h-screen">
