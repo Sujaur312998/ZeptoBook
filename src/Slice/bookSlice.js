@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Get favorites from localStorage
-
 export const booksSlice = createSlice({
     name: 'books',
     initialState: {

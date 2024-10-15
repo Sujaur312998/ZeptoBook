@@ -4,6 +4,7 @@ import LovedSvg from '../svg/Love_SVG_after';
 import { useDispatch } from 'react-redux';
 import { addFavorite, removeFavorite } from '../Slice/favoritesSlice';
 import { getBooks } from '../Slice/bookSlice'
+import { Link } from 'react-router-dom';
 
 const Bookitems = ({ books }) => {
     const dispatch = useDispatch(); // Use useDispatch to dispatch actions
@@ -28,15 +29,15 @@ const Bookitems = ({ books }) => {
     };
 
     return (
-        <div className='container max-w-screen-xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 px-4'>
+        <div className='container max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4'>
             {
                 books.length > 0 ? (
                     books.map((item, index) => {
                         return (
-                            <div key={index} className='relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300'>
+                            <div key={index} className='relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col'>
                                 {/* Love SVG Button in Top Right Corner */}
                                 <button
-                                    className='absolute right-2 top-2  rounded-full  z-10 focus:outline-none'
+                                    className='absolute right-2 top-2 rounded-full z-10 focus:outline-none'
                                     aria-label="Favorite"
                                     onClick={() => handleFavorite(index, item.id)}
                                 >
@@ -53,7 +54,7 @@ const Bookitems = ({ books }) => {
                                 </div>
 
                                 {/* Book Details */}
-                                <div className='p-4'>
+                                <div className='p-4 flex-grow'>
                                     {/* Book Title */}
                                     <h3 className='text-lg font-bold text-gray-900 truncate'>{item.title}</h3>
 
@@ -78,6 +79,18 @@ const Bookitems = ({ books }) => {
                                             </span>
                                         ))}
                                     </p>
+                                </div>
+
+                                {/* Read This Book Button */}
+                                <div className="p-4">
+                                    <Link to={`/book-details/${item.id}`}>
+                                        <button
+                                            className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200"
+                                        >
+                                            Details
+                                        </button>
+                                    </Link>
+
                                 </div>
                             </div>
                         );

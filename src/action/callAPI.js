@@ -7,7 +7,7 @@ export const callAPI = async (
   dispatch(getLoading(true))
   try {
     const res = await axios.get(url);
-    console.log(url,res)
+    // console.log(url,res)
     const { results, previous, next, count } = res.data
 
     const updatedBooks = results.map(book => ({
