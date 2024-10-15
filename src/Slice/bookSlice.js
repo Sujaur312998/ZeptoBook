@@ -5,12 +5,20 @@ import { createSlice } from '@reduxjs/toolkit';
 export const booksSlice = createSlice({
     name: 'books',
     initialState: {
+        count: null,
+        currentPage:1,
         books: [],
         previousPage: null,
         nextPage: null,
         loading: true
     },
     reducers: {
+        getCount: (state, action) => {
+            state.count = action.payload
+        },
+        getCurrentPage: (state, action) => {
+            state.currentPage = action.payload
+        },
         getBooks: (state, action) => {
             state.books = action.payload
         },
@@ -27,5 +35,5 @@ export const booksSlice = createSlice({
 });
 
 // Export actions
-export const { getBooks, getPreviousPage, getNextPage, getLoading } = booksSlice.actions;
+export const { getCount, getCurrentPage, getBooks, getPreviousPage, getNextPage, getLoading } = booksSlice.actions;
 export default booksSlice.reducer;

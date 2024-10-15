@@ -20,7 +20,6 @@ const Home = () => {
   }, []);
 
 
-
   if (loading) return <Loader />;
 
   return (

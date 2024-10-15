@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getBooks, getPreviousPage, getNextPage, getLoading } from '../Slice/bookSlice'
+import { getCount, getBooks, getPreviousPage, getNextPage, getLoading } from '../Slice/bookSlice'
 
 export const callAPI = async (
   url, favorites, dispatch
@@ -7,8 +7,8 @@ export const callAPI = async (
   dispatch(getLoading(true))
   try {
     const res = await axios.get(url);
-    console.log(res)
-    const { results, previous, next } = res.data
+    console.log(url,res)
+    const { results, previous, next, count } = res.data
 
     const updatedBooks = results.map(book => ({
       ...book,
@@ -16,6 +16,7 @@ export const callAPI = async (
     }));
 
     dispatch(getBooks(updatedBooks));
+    dispatch(getCount(count));
     dispatch(getLoading(false))
     dispatch(getPreviousPage(previous));
     dispatch(getNextPage(next));
