@@ -5,20 +5,14 @@ import Loader from '../Template/Loader';
 import { host } from '../host';
 import { callAPI } from '../action/callAPI';
 import NavigationBtn from '../Template/NavigationBtn'
-import { useNavigate } from 'react-router-dom';
 
 const WishList = () => {
   const dispatch = useDispatch();
-
-    // Data from redux
+  // Data from redux
   const { books, loading } = useSelector((state) => state.books); // Get books from Redux state
   const { favID, favorites } = useSelector((state) => state.favorites);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    if(!favID) navigate('/'); // Redirect to home
-    
     const url = `${host}/books/?ids=${favID}`
     callAPI(url, favorites, dispatch)
   }, [favID]);
@@ -35,7 +29,7 @@ const WishList = () => {
       />
 
       {/* 2nd Section: Previous and Next buttons */}
-      <NavigationBtn  />
+      <NavigationBtn />
     </div>
   )
 }
