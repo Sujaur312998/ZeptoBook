@@ -1,20 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Loader from '../Template/Loader';
-// import { host } from '../host';
 import { useSelector } from 'react-redux';
 import Bookitems from '../Template/Bookitems'
-// import { callAPI } from '../action/callAPI';
-import { useDispatch } from 'react-redux';
 import NavigationBtn from '../Template/NavigationBtn'
 
 const SearchBook = () => {
-    // const dispatch = useDispatch(); // Use useDispatch to dispatch actions
 
-    // Data from redux
-    // const { favorites } = useSelector((state) => state.favorites); // Get favorites from Redux state
     const { books, loading } = useSelector((state) => state.books); // Get books from Redux state
-
-
 
     if (loading) return <Loader />;
 

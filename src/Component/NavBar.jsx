@@ -21,12 +21,12 @@ const NavBar = () => {
         e.preventDefault();
         if (selectSearch) {
             const encodedSearch = encodeURIComponent(search);
-            navigate(`/searchbook/${encodedSearch}`); 
+            navigate(`/searchbook/${encodedSearch}`);
             const url = `${host}/books?search=${encodedSearch}`
             callAPI(url, favorites, dispatch)
         } else {
             const encodedSearch = encodeURIComponent(bookShelves.toLowerCase());
-            navigate(`/searchbook/${encodedSearch}`); 
+            navigate(`/searchbook/${encodedSearch}`);
             const url = `${host}/books?topic=${encodedSearch}`
             callAPI(url, favorites, dispatch)
         }
@@ -118,7 +118,7 @@ const NavBar = () => {
             {/* Mobile Search Input */}
             <div className='md:hidden flex relative top-20 items-center justify-center p-4 w-full'>
                 <form onSubmit={handleSubmit} className="flex items-center justify-between bg-white rounded-full shadow-md overflow-hidden w-full">
-                    <div className='w-full bg-rose-200'>
+                    <div className='w-full'>
                         <input
                             type="text"
                             placeholder="Search books or authors"
@@ -127,9 +127,14 @@ const NavBar = () => {
                             className="flex-grow px-4 py-2 outline-none text-sm text-gray-700 w-1/2"
                         />
                         <select className="p-2 text-sm text-gray-700 bg-white outline-none border-l border-gray-300 w-1/2">
-                            <option value="Author">Author</option>
-                            <option value="Title">Title</option>
-                            <option value="book">Book</option>
+                            <option hidden>
+                                Bookshelves or subjects
+                            </option>
+                            {
+                                bookShelvesData.map((item, index) => (
+                                    <option key={index} value={item.name}>{item.name}</option>
+                                ))
+                            }
                         </select>
                     </div>
 
