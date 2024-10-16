@@ -7,9 +7,7 @@ export const callAPI = async (
   dispatch(getLoading(true))
   try {
     const res = await axios.get(url);
-    // console.log(url,res)
     const { results, previous, next, count } = res.data
-
     const updatedBooks = results.map(book => ({
       ...book,
       favorite: favorites.find(fav => fav.favBook === book.id) ? true : false,

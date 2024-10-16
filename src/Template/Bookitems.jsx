@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 const Bookitems = ({ books }) => {
     const dispatch = useDispatch(); // Use useDispatch to dispatch actions
-
     const handleFavorite = (index, bookId) => {
         const updatedBooks = books.map((book, idx) => {
             // When the index matches, create a new object with updated 'favorit'
@@ -34,7 +33,11 @@ const Bookitems = ({ books }) => {
                 books.length > 0 ? (
                     books.map((item, index) => {
                         return (
-                            <div key={index} className='relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col'>
+                            <div
+                                key={index}
+                                className={`relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col animate-slideInRight`}
+                                style={{ animationDelay: `${index * 0.05}s` }}
+                            >
                                 {/* Love SVG Button in Top Right Corner */}
                                 <button
                                     className='absolute right-2 top-2 rounded-full z-10 focus:outline-none'
@@ -90,18 +93,16 @@ const Bookitems = ({ books }) => {
                                             Details
                                         </button>
                                     </Link>
-
                                 </div>
                             </div>
                         );
                     })
                 ) : (
-                    <p className=''>No books available</p> // Show a fallback message if no books are available 
+                    <p>No books available</p> // Show a fallback message if no books are available
                 )
-
-
             }
         </div>
+
     )
 }
 
