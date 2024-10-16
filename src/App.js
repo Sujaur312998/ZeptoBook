@@ -6,12 +6,14 @@ import { store } from './store';
 import WishList from './Component/WishList'
 import NotFoundPage from './Template/NotFoundPage';
 import BookDetails from './Component/BookDetails';
+import SearchBook from './Component/SearchBook';
 
 function App() {
 
   const routes = [
     { path: '/', element: <Home /> },
     { path: '/wishlist', element: <WishList /> },
+    { path: '/searchbook/:name', element: <SearchBook /> },
     { path: '/book-details/:id', element: <BookDetails /> },
     { path: '*', element: <NotFoundPage /> },
 

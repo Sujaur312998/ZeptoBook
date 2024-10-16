@@ -29,7 +29,7 @@ const Bookitems = ({ books }) => {
     };
 
     return (
-        <div className='container max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4'>
+        <div className='container max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 px-4'>
             {
                 books.length > 0 ? (
                     books.map((item, index) => {

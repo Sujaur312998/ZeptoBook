@@ -1,34 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from "axios";
-import { host } from "../host";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../Template/Loader';
 import { getLoading } from '../Slice/bookSlice';
+import { bookDetailsAPI } from '../action/bookDetailsAPI'
 
 const BookDetails = () => {
     let { id } = useParams();
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const [bookDetails, setBookDetails] = useState(null);
     const { loading } = useSelector(state => state.books)
 
     useEffect(() => {
-        const url = `${host}/books/${id}`
         dispatch(getLoading(true))
-        axios.get(url)
-            .then(res => {
-                setBookDetails(res.data);
-                dispatch(getLoading(false))
-            })
-            .catch(err => {
-                dispatch(getLoading(false))
-                console.error(err);
-            })
+        bookDetailsAPI(id, dispatch, setBookDetails)
     }, [id]);
 
-
-    if(loading) return <Loader />
+    if (loading) return <Loader />
 
     return (
         <div className='w-full flex flex-col items-center justify-center absolute top-28 md:top-12'>
@@ -43,18 +32,18 @@ const BookDetails = () => {
                             />
                             <h1 className="text-3xl font-bold text-blue-600 mb-2">{bookDetails.title}</h1>
                             <p className="text-gray-700 italic">
-                                by {bookDetails.authors[0].name} ({bookDetails.authors[0].birth_year} - {bookDetails.authors[0].death_year})
+                                by {bookDetails.authors[0]?.name} ({bookDetails.authors[0]?.birth_year} - {bookDetails.authors[0]?.death_year})
                             </p>
-                            <p className="text-gray-500 text-sm">Languages: {bookDetails.languages.join(", ")}, Download: {bookDetails.download_count}  </p>
+                            <p className="text-gray-500 text-sm">Languages: {bookDetails?.languages.join(", ")}, Download: {bookDetails?.download_count}  </p>
                             <div className=" flex gap-2 p-4">
-                                <Link to={bookDetails.formats["text/html"]}>
+                                <Link to={bookDetails?.formats["text/html"]}>
                                     <button
                                         className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-orange-400 transition-colors duration-200"
                                     >
                                         Read Online
                                     </button>
                                 </Link>
-                                <Link to={bookDetails.formats["application/octet-stream"]}>
+                                <Link to={bookDetails?.formats["application/octet-stream"]}>
                                     <button
                                         className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-orange-400 transition-colors duration-200"
                                     >

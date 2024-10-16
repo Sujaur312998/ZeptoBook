@@ -6,19 +6,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { host } from '../host'
 import { callAPI } from '../action/callAPI'
+import { bookShelvesData } from '../lib/bookShelves'
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+    const navigate = useNavigate();
+    const [selectSearch, setselectSearch] = useState(true);
     const [search, setSearch] = useState('');
+    const [bookShelves, setBookShelves] = useState('');
     const dispatch = useDispatch();
     const { favBookCount, favorites } = useSelector((state) => state.favorites); // Get favBookCount from Redux state
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const encodedSearch = encodeURIComponent(search);
-        const url = `${host}/books?search=${encodedSearch}`
-        callAPI(url, favorites, dispatch)
+        if (selectSearch) {
+            const encodedSearch = encodeURIComponent(search);
+            navigate(`/searchbook/${encodedSearch}`); 
+            const url = `${host}/books?search=${encodedSearch}`
+            callAPI(url, favorites, dispatch)
+        } else {
+            const encodedSearch = encodeURIComponent(bookShelves.toLowerCase());
+            navigate(`/searchbook/${encodedSearch}`); 
+            const url = `${host}/books?topic=${encodedSearch}`
+            callAPI(url, favorites, dispatch)
+        }
     };
-
 
     return (
         <div>
@@ -33,20 +45,51 @@ const NavBar = () => {
                     </Link>
 
                     {/* 2nd Section - Search Input */}
-                    <div className='hidden md:flex items-center w-1/3'>
-                        <form onSubmit={handleSubmit} className="relative w-full">
-                            <input
-                                type="text"
-                                placeholder="Search books or authors"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="w-full px-4 py-2 pr-10 text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-transparent transition-shadow duration-200"
-                            />
-                            <button type="submit" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-orange-400 cursor-pointer">
-                                <CiSearch />
+                    <div className='hidden md:flex items-center w-3/5'>
+                        <form onSubmit={handleSubmit} className="flex  items-center justify-between bg-white rounded-full shadow-md overflow-hidden w-full">
+                            <div className='w-full'>
+                                <input
+                                    type="text"
+                                    placeholder="Search books or authors"
+                                    value={search}
+                                    onChange={(e) => {
+                                        setselectSearch(true)
+                                        setSearch(e.target.value)
+                                        setBookShelves('')
+                                    }}
+                                    className="flex-grow px-4 py-2 outline-none text-sm text-gray-700 w-1/2"
+                                />
+                                <select
+                                    className="p-2 text-sm bg-white outline-none border-l border-gray-300 w-1/2"
+                                    value={bookShelves}
+                                    onChange={(e) => {
+                                        setselectSearch(false)
+                                        setSearch('')
+                                        setBookShelves(e.target.value)
+                                    }
+                                    }
+                                    aria-label="Bookshelves or subjects"
+                                >
+                                    <option hidden>
+                                        Bookshelves or subjects
+                                    </option>
+                                    {
+                                        bookShelvesData.map((item, index) => (
+                                            <option key={index} value={item.name}>{item.name}</option>
+                                        ))
+                                    }
+
+
+                                </select>
+
+                            </div>
+
+                            <button type="submit" className="w-12  py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
+                                <CiSearch className="text-xl" />
                             </button>
                         </form>
                     </div>
+
 
                     {/* 3rd Section - Icons */}
                     <div className="flex items-center space-x-4">
@@ -73,15 +116,27 @@ const NavBar = () => {
             </nav>
 
             {/* Mobile Search Input */}
-            <div className='flex relative top-20 items-center justify-center p-4 md:hidden'>
-                <div className="relative w-full">
-                    <input
-                        type="text"
-                        placeholder="Search books or authors"
-                        className="w-full px-4 py-2 pr-10 text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-transparent transition-shadow duration-200"
-                    />
-                    <CiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 " />
-                </div>
+            <div className='md:hidden flex relative top-20 items-center justify-center p-4 w-full'>
+                <form onSubmit={handleSubmit} className="flex items-center justify-between bg-white rounded-full shadow-md overflow-hidden w-full">
+                    <div className='w-full bg-rose-200'>
+                        <input
+                            type="text"
+                            placeholder="Search books or authors"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="flex-grow px-4 py-2 outline-none text-sm text-gray-700 w-1/2"
+                        />
+                        <select className="p-2 text-sm text-gray-700 bg-white outline-none border-l border-gray-300 w-1/2">
+                            <option value="Author">Author</option>
+                            <option value="Title">Title</option>
+                            <option value="book">Book</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" className="w-12  py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
+                        <CiSearch className="text-xl" />
+                    </button>
+                </form>
             </div>
         </div>
 
