@@ -35,7 +35,7 @@ const Bookitems = ({ books }) => {
                         return (
                             <div
                                 key={index}
-                                className={`relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col animate-slideInRight`}
+                                className={`relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col animate-slideInRight  hover:ring-1 hover:ring-orange-400`}
                                 style={{ animationDelay: `${index * 0.05}s` }}
                             >
                                 {/* Love SVG Button in Top Right Corner */}

@@ -116,9 +116,9 @@ const NavBar = () => {
             </nav>
 
             {/* Mobile Search Input */}
-            <div className='md:hidden flex relative top-20 items-center justify-center p-4 w-full'>
+            <div className='md:hidden flex fixed top-20 items-center justify-center p-4 w-full bg-white z-50'>
                 <form onSubmit={handleSubmit} className="flex items-center justify-between bg-white rounded-full shadow-md overflow-hidden w-full">
-                    <div className='w-full'>
+                    <div className='w-full flex'>
                         <input
                             type="text"
                             placeholder="Search books or authors"
@@ -127,22 +127,19 @@ const NavBar = () => {
                             className="flex-grow px-4 py-2 outline-none text-sm text-gray-700 w-1/2"
                         />
                         <select className="p-2 text-sm text-gray-700 bg-white outline-none border-l border-gray-300 w-1/2">
-                            <option hidden>
-                                Bookshelves or subjects
-                            </option>
-                            {
-                                bookShelvesData.map((item, index) => (
-                                    <option key={index} value={item.name}>{item.name}</option>
-                                ))
-                            }
+                            <option hidden>Bookshelves or subjects</option>
+                            {bookShelvesData.map((item, index) => (
+                                <option key={index} value={item.name}>{item.name}</option>
+                            ))}
                         </select>
                     </div>
 
-                    <button type="submit" className="w-12  py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
+                    <button type="submit" className="w-12 py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
                         <CiSearch className="text-xl" />
                     </button>
                 </form>
             </div>
+
         </div>
 
     )
