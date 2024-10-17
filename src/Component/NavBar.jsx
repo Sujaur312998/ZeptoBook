@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { CiSearch } from "react-icons/ci";
 import { FaBookOpen } from "react-icons/fa6";
 import LovedSvg from '../svg/Love_SVG_after';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +26,6 @@ const NavBar = () => {
             const url = `${host}/books?search=${encodedSearch}`
             callAPI(url, favorites, dispatch)
         }
-        return
     }, [debouncedSearch]);
 
     const handleSelect = (e) => {
@@ -81,10 +79,6 @@ const NavBar = () => {
                                 </select>
 
                             </div>
-
-                            {/* <button type="submit" className="w-12  py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
-                                <CiSearch className="text-xl" />
-                            </button> */}
                         </form>
                     </div>
 
@@ -138,10 +132,6 @@ const NavBar = () => {
                             }
                         </select>
                     </div>
-
-                    {/* <button type="submit" className="w-12 py-2 text-black bg-orange-400 hover:text-white flex items-center justify-center rounded-r-full">
-                        <CiSearch className="text-xl" />
-                    </button> */}
                 </form>
             </div>
 

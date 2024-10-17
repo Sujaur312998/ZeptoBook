@@ -6,6 +6,7 @@ export const bookDetailsAPI = (id, dispatch, setBookDetails) => {
     const url = `${host}/books/${id}`
     axios.get(url)
         .then(res => {
+            console.log(res.data);
             setBookDetails(res.data);
             dispatch(getLoading(false))
         })

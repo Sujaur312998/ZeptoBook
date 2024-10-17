@@ -18,8 +18,6 @@ const WishList = () => {
   useEffect(() => {
     if (!favID) navigate('/');
     const url = `${host}/books/?ids=${favID}`
-    console.log(url);
-
     callAPI(url, favorites, dispatch)
   }, [favID]);
 
