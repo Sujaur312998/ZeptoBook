@@ -23,8 +23,6 @@ const NavBar = () => {
             setBookShelves('')
             const encodedSearch = encodeURIComponent(search);
             navigate(`/searchbook/${encodedSearch}`);
-            const url = `${host}/books?search=${encodedSearch}`
-            callAPI(url, favorites, dispatch)
         }
     }, [debouncedSearch]);
 
